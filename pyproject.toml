@@ -1,0 +1,19 @@
+[project]
+name = "app-fastapi-sqlmodel"
+version = "0.1.0"
+description = "App con FastAPI + SQLModel"
+authors = [{ name = "Jean" }]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi",
+    "sqlmodel",
+    "python-dotenv",
+    "uvicorn"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"} 
+
+[tool.setuptools.packages.find]
+where = ["src"]
