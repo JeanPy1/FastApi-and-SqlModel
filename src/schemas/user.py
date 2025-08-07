@@ -5,6 +5,8 @@ class UserCreate(BaseModel):
     email: EmailStr
     username: str
     password: str
+    #created_at: None = None
+    #updated_at: None = None
 
 class UserRead(BaseModel):
     id: int

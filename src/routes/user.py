@@ -23,10 +23,12 @@ async def get_user(id: int, session: Session = Depends(get_session)):
         return response
     
 @route.post("/user/create", response_model=UserRead)
-async def create_user(user: UserCreate, session: Session = Depends(get_session)):    
+async def create_user(user_create: UserCreate, session: Session = Depends(get_session)):    
+        user= User(**user_create.model_dump())
         session.add(user)    
         session.commit()
-        session.refresh(user)        
+        session.refresh(user)
+
         return user
     
 @route.put("/user/modify", response_model=UserRead)

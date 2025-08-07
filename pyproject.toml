@@ -9,7 +9,8 @@ dependencies = [
     "fastapi",
     "sqlmodel",
     "python-dotenv",
-    "uvicorn"
+    "uvicorn",
+    "alembic>=1.16.4",
 ]
 
 [tool.setuptools]
