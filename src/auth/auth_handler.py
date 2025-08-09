@@ -11,4 +11,4 @@ def get_password_hash(password: str):
     return pwd_context.hash(password)
 
 def get_user_by_username(session: Session, username: str):
-    return session.
+    return session
