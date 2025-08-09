@@ -1,0 +1,7 @@
+from fastapi import APIRouter, Form
+
+route = APIRouter()
+
+@route.post("/login")
+async def login(username: str = Form(...), password: str =Form(...)):
+    return {"username": username, "password": password}

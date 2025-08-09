@@ -6,11 +6,16 @@ authors = [{ name = "Jean" }]
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi",
-    "sqlmodel",
-    "python-dotenv",
-    "uvicorn",
+    "fastapi>=0.116.1",
+    "sqlmodel>=0.0.24",
+    "python-dotenv>=1.1.1",
+    "uvicorn>=0.35.0",
     "alembic>=1.16.4",
+    "pydantic[email]>=2.11.7",
+    "pytz>=2025.2",
+    "python-multipart>=0.0.20",
+    "python-jose[cryptography]>=3.5.0",
+    "passlib[bcrypt]>=1.7.4",
 ]
 
 [tool.setuptools]

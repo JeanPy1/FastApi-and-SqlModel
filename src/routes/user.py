@@ -5,6 +5,8 @@ from schemas.user import UserCreate, UserRead, UserUpdate
 from sqlmodel import Session
 
 from models.user import User
+from datetime import datetime
+from pytz import timezone
 
 route = APIRouter()
 
@@ -38,6 +40,8 @@ async def modify_user(id: int, user: UserUpdate, session: Session = Depends(get_
         if not response:
               raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not Found")
         
+        response.updated_at = datetime.now(timezone('America/Lima'))
+
         for field, value in user.model_dump(exclude_none=True, exclude_unset=True).items():
               setattr(response, field, value)
 
