@@ -1,12 +1,12 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlmodel import select
-from db.session import get_session
-from schemas.user import UserCreate, UserRead, UserUpdate
+from src.db.session import get_session
+from src.schemas.user import UserCreate, UserRead, UserUpdate
 from sqlmodel import Session
-
-from models.user import User
 from datetime import datetime
 from pytz import timezone
+from src.models.user import User
+from src.auth.auth_handler import get_password_hash
 
 route = APIRouter()
 
@@ -27,6 +27,7 @@ async def get_user(id: int, session: Session = Depends(get_session)):
 @route.post("/user/create", response_model=UserRead)
 async def create_user(user_create: UserCreate, session: Session = Depends(get_session)):    
         user= User(**user_create.model_dump())
+        user.password = get_password_hash(user_create.password)
         session.add(user)    
         session.commit()
         session.refresh(user)
@@ -42,9 +43,16 @@ async def modify_user(id: int, user: UserUpdate, session: Session = Depends(get_
         
         response.updated_at = datetime.now(timezone('America/Lima'))
 
-        for field, value in user.model_dump(exclude_none=True, exclude_unset=True).items():
-              setattr(response, field, value)
+        data = user.model_dump(exclude_none=True, exclude_unset=True)
+        
+        if "password" in data:
+            data["password"] = get_password_hash(data["password"])
+           
+        print(response)
 
+        for field, value in data.items():
+              setattr(response, field, value)        
+      
         session.add(response)
         session.commit()
         session.refresh(response)
